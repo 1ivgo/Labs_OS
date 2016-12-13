@@ -1,0 +1,2 @@
+all: laba3.c
+	g++ -lpthread laba3.c
