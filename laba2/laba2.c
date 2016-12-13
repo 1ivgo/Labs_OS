@@ -37,29 +37,12 @@ int main()
 	if (Child_pid > 0)
 	{
 		wait(&st);
-
-		lseek(fd, 0, SEEK_SET);
-
-		while (num_readen = read(fd, buf + buf_off_set, BUF_SIZE) > 0)
-		{
-			if (num_readen == -1)
-			{
-				printf("Ошибка чтения\n");
-				return -1;
-			}
-			
-			buf_off_set += num_readen;
-		}
-
-		printf("%s\n", buf);
-
-		buf_off_set = 0;
-
+	
 		size_t buf_size = sprintf(buf2, "Я родитель, мой пид: %d\n", getpid());
-
+		
 		do
 		{
-			num_written = write(fd, buf2 + buf_off_set, buf_size - buf_off_set);
+			num_written = write(fd, buf2, buf_size - buf_off_set);
 
 			if (num_written == -1)
 			{
@@ -71,7 +54,21 @@ int main()
 
 		}
 		while (buf_off_set != buf_size);
-
+		
+		lseek(fd, 0, SEEK_SET);
+		while (num_readen = read(fd, buf, BUF_SIZE) > 0)
+		{
+			if (num_readen == -1)
+			{
+				printf("Ошибка чтения\n");
+				return -1;
+			}
+			
+			buf_off_set += num_readen;
+		}
+		num_readen = 0;
+		printf("%s", buf);
+		
 		close(fd);
 	}
 	else
@@ -80,7 +77,7 @@ int main()
 	
 		do
 		{
-			num_written = write(fd, buf + buf_off_set, buf_size - buf_off_set);
+			num_written = write(fd, buf, buf_size - buf_off_set);
 
 			if (num_written == -1)
 			{
