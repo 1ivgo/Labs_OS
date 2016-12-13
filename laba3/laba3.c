@@ -17,8 +17,6 @@ void* numbers_of_Fib(void*){
 int main()
 {
 	pthread_t thread[10];
-	//pthread_t thread;	
-	//numbers_of_Fib();
 	int i;
 	for(i=0; i<10; i++){
 		pthread_create( &thread[i], NULL, numbers_of_Fib, NULL );
