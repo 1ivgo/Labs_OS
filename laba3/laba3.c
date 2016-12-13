@@ -2,26 +2,29 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-void* numbers_of_Fib(void*){
+void numbers_of_Fib(){
 	long double Fib[100];
 	Fib[0]=1;
 	Fib[1]=1;
-	int i, k=0;
+	int i;
 	for (i=2; i<100; i++){
 		Fib[i] = Fib[i-2] + Fib[i-1];
-		printf("%Lf\n", Fib[k]);
-		k++;
 	}
+	for (i=0; i<100; i++){
+		printf("%Lf\n", Fib[i]);
+	}
+}
+
+void* thread_func(void * arg){
+  numbers_of_Fib();
 }
 
 int main()
 {
 	pthread_t thread[10];
-	//pthread_t thread;	
-	//numbers_of_Fib();
 	int i;
 	for(i=0; i<10; i++){
-		pthread_create( &thread[i], NULL, numbers_of_Fib, NULL );
+		pthread_create(&thread[i], NULL, thread_func, NULL);
 	}
 	
 	for(i=0; i<10;i++){
