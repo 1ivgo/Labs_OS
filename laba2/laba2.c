@@ -20,7 +20,7 @@ int main()
 	size_t buf_off_set = 0;
 	pid_t Child_pid;
 
-	if ((fd = open("./File", O_RDWR | O_CREAT, S_IRWXU)) == -1)
+	if ((fd = open("./File", O_RDWR | O_CREAT, 0666)) == -1)
 	{
 		printf("Ошибка открытия файла\n");
 		return -1;
