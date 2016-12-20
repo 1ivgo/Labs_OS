@@ -2,21 +2,21 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-void numbers_of_Fib(){
+void* thread_func(void * arg){
 	long double Fib[100];
 	Fib[0]=1;
 	Fib[1]=1;
 	int i;
-	for (i=2; i<100; i++){
+	for (i=2; i<99; i++){
 		Fib[i] = Fib[i-2] + Fib[i-1];
 	}
-	for (i=0; i<100; i++){
-		printf("%Lf\n", Fib[i]);
+	printf("Thread: %x", pthread_self());
+		
+	for (i=0; i<99; i++){
+		printf("%.Lf\n", Fib[i]);
 	}
-}
-
-void* thread_func(void * arg){
-  numbers_of_Fib();
+	
+  pthread_exit(0);
 }
 
 int main()
@@ -33,4 +33,3 @@ int main()
 	
 	return 0;
 }
-
