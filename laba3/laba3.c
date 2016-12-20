@@ -10,10 +10,9 @@ void* thread_func(void * arg){
 	for (i=2; i<99; i++){
 		Fib[i] = Fib[i-2] + Fib[i-1];
 	}
-	printf("Thread: %x", pthread_self());
-		
+	
 	for (i=0; i<99; i++){
-		printf("%.Lf\n", Fib[i]);
+		printf("%Thread: %x\t .Lf\n", Fib[i]);
 	}
 	
   pthread_exit(0);
