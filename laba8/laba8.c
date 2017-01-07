@@ -72,6 +72,7 @@ void* thread_func_reader(void* arg){
 		pthread_mutex_unlock(&mutex);
 
 		sleep(1);
+		close(fd);
 	}
 	flag = 0;
 	pthread_exit(0);
